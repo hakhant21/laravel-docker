@@ -1,0 +1,79 @@
+version: '3.8'
+
+services: 
+
+  nginx: 
+    build:
+      context: ./dockerfiles
+      dockerfile: nginx.dockerfile
+    ports:
+      - "81:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mysql
+      - redis
+      - php
+
+  mysql: 
+    image: mariadb:10.5
+    restart: unless-stopped
+    tty: true
+    ports: 
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: 
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  php: 
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+
+  redis: 
+    image: redis:alpine
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+
+  mosquitto:
+    restart: unless-stopped
+    build: 
+      context: ./dockerfiles
+      dockerfile: mosquitto.dockerfile
+    ports:
+      - "1884:1883"
+
+  composer: 
+    build: 
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+
+  npm: 
+    image: node:stable-alpine
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    
+  artisan: 
+    build: 
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - mysql
+    entrypoint: ['php', '/var/www/html/artisan']

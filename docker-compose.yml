@@ -78,4 +78,17 @@ services:
     working_dir: /var/www/html
     depends_on:
       - mysql
+      - npm
     entrypoint: ['php', '/var/www/html/artisan']
+
+  supervisor:
+    build:
+      context: ./dockerfiles
+      dockerfile: supervisor.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+      - npm
+    

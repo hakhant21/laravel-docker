@@ -22,6 +22,13 @@ This project sets up multiple services using Docker, including Nginx, PHP, Compo
 ```bash
 git clone https://github.com/hakhant21/laravel-docker.git
 
+# Navigate to the project directory
+cd laravel-docker
+
+# copy .env.example to .env
+cp .env.example .env for docker
+
+# update .env file
 ```
 
 2. Build Docker containers
@@ -41,14 +48,18 @@ docker-compose up -d
 4. Using Composer Service
 
 ```bash
-docker-compose run --rm composer install
+# install dependencies
+docker-compose run --rm composer install 
 
+# require dependencies
+docker-compose run --rm composer require 
 ```
 
 5. Using Artisan Service
 
 ```bash
-docker-compose run --rm artisan make
+# artisan commands
+docker-compose run --rm artisan make:
 
 ```
 

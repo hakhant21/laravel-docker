@@ -32,6 +32,8 @@ Thumbs.db
 *.swp
 *.swo
 
+.env
+
 # Ignore the docker-compose.override.yml file, if you have one for local setups
 docker-compose.override.yml
 

@@ -21,9 +21,9 @@ services:
       - "3307:3306"
     environment:
       MYSQL_DATABASE: fms
-      MYSQL_ROOT_PASSWORD: asdffdsa 
       MYSQL_USER: detpos
       MYSQL_PASSWORD: asdffdsa
+      MYSQL_ROOT_PASSWORD: asdffdsa 
     volumes:
       - ./dockerfiles/mysql:/var/lib/mysql
 

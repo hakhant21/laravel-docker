@@ -23,9 +23,6 @@ Thumbs.db
 *.tmp
 *.swp
 
-# Ignore Docker-related files that are not needed in version control
-Dockerfiles/mysql/*
-
 # Ignore compiled or generated files
 *.compiled
 *.min.js
@@ -37,3 +34,5 @@ Dockerfiles/mysql/*
 
 # Ignore the docker-compose.override.yml file, if you have one for local setups
 docker-compose.override.yml
+
+Dockerfiles/mysql/*

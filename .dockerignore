@@ -1,0 +1,36 @@
+# Ignore .git directory
+.git/
+
+# Ignore Dockerfile-related directories and files not needed for the build context
+Dockerfiles/*
+!Dockerfiles/nginx.dockerfile
+!Dockerfiles/php.dockerfile
+!Dockerfiles/composer.dockerfile
+!Dockerfiles/mosquitto.dockerfile
+
+# Ignore the source code (src/) if it's not needed in all Docker images
+src/
+
+# Ignore the node_modules or build directories if present (common for JS/PHP projects)
+node_modules/
+build/
+
+# Ignore logs, tmp files, etc.
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Ignore .env files if they are used for local development and should not be inside the image
+.env
+.env.local
+
+# Ignore IDE-specific files (e.g., VS Code, IntelliJ, etc.)
+.idea/
+.vscode/
+
+# Ignore any other unnecessary files (e.g., temp folders)
+temp/
+
+# Ignore the docker-compose.yml file if it is not needed in the image build context
+docker-compose.yml

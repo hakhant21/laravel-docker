@@ -1,0 +1,39 @@
+# Ignore node_modules or other dependencies directories (for JS, PHP, etc.)
+node_modules/
+vendor/
+
+# Ignore build or output directories
+build/
+dist/
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore the .env files with environment variables
+.env
+.env.local
+
+# Ignore log files
+*.log
+*.tmp
+*.swp
+
+# Ignore Docker-related files that are not needed in version control
+Dockerfiles/mysql/*
+
+# Ignore compiled or generated files
+*.compiled
+*.min.js
+*.min.css
+
+# Ignore other temporary or backup files
+*.swp
+*.swo
+
+# Ignore the docker-compose.override.yml file, if you have one for local setups
+docker-compose.override.yml

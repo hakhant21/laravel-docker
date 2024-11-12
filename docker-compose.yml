@@ -1,11 +1,9 @@
-version: '3.8'
-
 services: 
-
   nginx: 
+    container_name: nginx
     build:
       context: ./dockerfiles
-      dockerfile: nginx.dockerfile
+      dockerfile: nginx.dockerfile      
     ports:
       - "81:80"
     volumes:
@@ -16,18 +14,18 @@ services:
       - php
 
   mysql: 
-    image: mariadb:10.5
+    image: mysql:8.0
     restart: unless-stopped
     tty: true
     ports: 
       - "3307:3306"
     environment:
-      MYSQL_DATABASE: 
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_USER: 
-      MYSQL_PASSWORD: 
+      MYSQL_DATABASE: fms
+      MYSQL_ROOT_PASSWORD: asdffdsa 
+      MYSQL_USER: detpos
+      MYSQL_PASSWORD: asdffdsa
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./dockerfiles/mysql:/var/lib/mysql
 
   php: 
     build:
@@ -45,12 +43,16 @@ services:
       - "6380:6379"
 
   mosquitto:
-    restart: unless-stopped
     build: 
       context: ./dockerfiles
       dockerfile: mosquitto.dockerfile
     ports:
       - "1884:1883"
+      - "9002:9001"
+    volumes:
+      - ./dockerfiles/mosquitto/mosquitto.conf:/etc/mosquitto/mosquitto.conf
+      - ./dockerfiles/mosquitto/passwd:/etc/mosquitto/passwd
+    restart: unless-stopped
 
   composer: 
     build: 
@@ -61,7 +63,7 @@ services:
     working_dir: /var/www/html
 
   npm: 
-    image: node:stable-alpine
+    image: node:current-alpine
     volumes: 
       - ./src:/var/www/html
     working_dir: /var/www/html

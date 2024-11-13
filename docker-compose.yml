@@ -62,13 +62,6 @@ services:
       - ./src:/var/www/html
     working_dir: /var/www/html
 
-  npm: 
-    image: node:current-alpine
-    volumes: 
-      - ./src:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ['npm']
-    
   artisan: 
     build: 
       context: ./dockerfiles
@@ -79,14 +72,16 @@ services:
     depends_on:
       - mysql
     entrypoint: ['php', '/var/www/html/artisan']
-
+  
   supervisor:
-    build:
-      context: ./dockerfiles
-      dockerfile: supervisor.dockerfile
+    container_name: supervisor
+    image: redditsaved/laravel-supervisord:latest
     volumes:
       - ./src:/var/www/html
-    working_dir: /var/www/html
+    command: 
+      - ./dockerfiles/supervisor/shell/run.sh /usr/local/bin/run.sh
+      - ./dockerfiles/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+    entrypoint: ['/usr/bin/supervisord', '-c', '/etc/supervisor/supervisord.conf']
     depends_on:
       - php
     
